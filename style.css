@@ -3,27 +3,47 @@
 /* 🎨 全体の基本設定（アースカラー） */
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #F9F6F0; /* 背景をアイボリーに */
-    color: #4A4A4A; /* 文字をチャコールグレーに */
+    background-color: #F9F6F0;
+    /* 背景をアイボリーに */
+    color: #4A4A4A;
+    /* 文字をチャコールグレーに */
     margin: 0;
     display: flex;
-    justify-content: center; /* 画面を中央寄せ */
+    justify-content: center;
+    /* 画面を中央寄せ */
 }
 
 /* 📱 スマホサイズのコンテナ（白い枠） */
 .app-container {
     width: 100%;
-    max-width: 400px; /* スマホの最大幅 */
-    background-color: #FFFFFF; /* コンテナの中は白 */
-    min-height: 100vh; /* 画面の高さいっぱいに */
+    max-width: 400px;
+    /* スマホの最大幅 */
+    background-color: #FFFFFF;
+    /* コンテナの中は白 */
+    min-height: 100vh;
+    /* 画面の高さいっぱいに */
     padding: 20px;
     box-sizing: border-box;
-    box-shadow: 0 0 10px rgba(0,0,0,0.05); /* うっすら影をつける */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    /* うっすら影をつける */
 }
 
 /* 📝 ヘッダー（タイトル） */
 h1 {
     font-size: 24px;
     text-align: center;
-    color: #6B705C; /* 深みのあるグリーン */
+    color: #6B705C;
+    /* 深みのあるグリーン */
+}
+
+/* スタートボタンの色、枠線 */
+.btn-start {
+    background-color: #8A9A5B;
+    color: white;
+    border-radius: 8px;
+}
+
+/* 練習画面を非表示にする */
+.practice-area {
+    display: none;
 }
