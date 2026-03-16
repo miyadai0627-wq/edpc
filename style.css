@@ -41,9 +41,60 @@ h1 {
     background-color: #8A9A5B;
     color: white;
     border-radius: 8px;
+    width: 100%;
+    /* 横幅いっぱいに広げる */
+    padding: 15px;
+    /* 内側に余白を作ってふっくら（タップしやすく）させる */
+    border: none;
+    /* デフォルトの枠線を消す */
+    font-size: 18px;
+    /* 文字を少し大きく */
+    font-weight: bold;
+    /* 文字を太く */
+    cursor: pointer;
+    /* PCで見た時、マウスを乗せたら指のマークにする */
+    margin-bottom: 30px;
+    /* 下に隙間を空ける */
 }
 
 /* 練習画面を非表示にする */
 .practice-area {
     display: none;
+}
+
+/* 🖋 入力エリア全体を整える */
+.input-area {
+    background-color: #F9F6F0;
+    /* アプリ背景と同じアイボリーにして馴染ませる */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+/* 入力エリアの中にある input（テキストボックス）を整える */
+.input-area input {
+    width: 100%;
+    /* 横幅いっぱいに */
+    padding: 10px;
+    /* 内側に余白を */
+    margin-bottom: 10px;
+    /* テキストボックス同士の間に隙間を */
+    border: 1px solid #D4D4D4;
+    /* 薄いグレーの枠線 */
+    border-radius: 4px;
+    /* 少しだけ角丸に */
+    box-sizing: border-box;
+    /* 枠線の太さも含めて横幅100%にする魔法のコード */
+}
+
+/* 「＋追加する」ボタンを整える */
+.btn-add {
+    width: 100%;
+    padding: 10px;
+    background-color: #C89F82;
+    /* モカブラウン */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
