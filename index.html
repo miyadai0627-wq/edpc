@@ -10,14 +10,22 @@
 
 <body>
     <div class="app-container">
-        
+
         <h1>Custom Voice Check</h1>
         <button class="btn-start">&#128483;練習スタート！</button>
-       
+
         <div class="input-area">
             <input type="text" name="EnglishInput" placeholder="英語を入力…">
             <input type="text" name="JapaneseInput" placeholder="日本語を入力…">
-            <button class="btn-add">&#43;追加する</button>
+            <button class="btn-add">&plus;追加する</button>
+        </div>
+        <h2>Myフレーズ一覧</h2>
+        <ul id="phrase-list">
+            <li>I'll be right back.(すぐ戻ります)</li>
+        </ul>
+        <div id="practice-area" class="practice-area">
+            <button class="btn-back">&lt;一覧に戻る</button>
+            <h3>Sounds good to me.</h3>
         </div>
     </div>
     <script src="app.js"></script>
