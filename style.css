@@ -122,7 +122,7 @@ h2 {
     padding: 15px;
     border-radius: 8px;
     margin-bottom: 12px;
-    /* 🌟プロの魔法5：リストのカードに柔らかい影をつける */
+    /* プロの魔法：リストのカードに柔らかい影をつける */
     box-shadow: 0 2px 8px rgba(0,0,0,0.06); 
     display: flex;
     align-items: center; /* 縦の真ん中を綺麗に揃える */
@@ -141,7 +141,7 @@ h2 {
     cursor: pointer;
 }
 
-/* 🌟プロの魔法6：テキスト部分が「空きスペース」をしっかり埋めるようにする */
+/* プロの魔法：テキスト部分が「空きスペース」をしっかり埋めるようにする */
 #phrase-list li div {
     flex-grow: 1; 
 }
