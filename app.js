@@ -1,3 +1,12 @@
+// 【ミッション13-1】すべての単語データを記憶しておく大元の箱（配列）
+let wordList = [];
+
+// 【ミッション13-2】wordListの中身を、メモ帳(localStorage)に保存する専用マシン
+const saveToLocalStorage = function () {
+    // リストを「文字(JSON)」に変身させて、"myWords" という名前で保存！
+    localStorage.setItem("myWords", JSON.stringify(wordList));
+};
+
 // 1. 追加ボタンを捕まえる
 const btnAdd = document.getElementById("btn-add");
 
@@ -10,56 +19,96 @@ const japaneseInput = document.getElementById("japanese-input");
 // 4. フレーズを追加する先（ulタグ）を捕まえる
 const phraseList = document.getElementById("phrase-list");
 
-// ちゃんと捕まえられたか、テスト表示してみる
-console.log(btnAdd);
+// 【ミッション12】リストを画面に作る「専用の工場（関数）」
+// englishとjapaneseのデータを受け取って、画面にリストを追加する役割
+const addPhraseToScreen = function (english, japanese) {
+    // 【ミッション5】新しい <li> タグを作る
+    const newLi = document.createElement("li");
 
-// 追加ボタンが「〇〇」されたら、{ } の中の処理を実行する
-btnAdd.addEventListener("click", function () {
-
-    // 1. 英語の入力欄から「値」を取り出して、新しい変数（englishText）に入れる
-    const englishText = englishInput.value;
-
-    // 2. 日本語の入力欄から「値」を取り出して、新しい変数（japaneseText）に入れる
-    const japaneseText = japaneseInput.value;
-
-    // 3. ちゃんと文字が取り出せたか、コンソールで確認してみる！
-    console.log("入力された英語: " + englishText);
-    console.log("入力された日本語: " + japaneseText);
-btnAdd.addEventListener("click", function() {
-    const englishText = englishInput.value;
-    const japaneseText = japaneseInput.value;
-
-    console.log("入力された英語: " + englishText);
-    console.log("入力された日本語: " + japaneseText);
-
-    // 👇ここから下を書き足して、穴埋めしてみてください！
-
-    // 【ミッション4】入力が空っぽなら、アラートを出して処理をストップする（空振り防止）
-    if (englishText === "" || japaneseText === "") {
-        alert("英語と日本語の両方を入力してください！");
-        return; // 「これ以上下のプログラムは実行しないで戻る」という魔法の言葉
-    }
-
-    // 【ミッション5】新しい <li> タグをJavaScriptのセカイに作り出す
-    const newLi = document.createElement("ここを埋めてください");
-
-    // 【ミッション6】作った <li> の中に、チェックボックスや入力された文字を流し込む
-    // （※ バッククォート ` ` で囲むと、${変数名} で中身を埋め込める超便利な書き方です！）
+    // 【ミッション6】中身を流し込む（変数の名前に注意！）
     newLi.innerHTML = `
         <input type="checkbox">
         <div>
-            <strong>${ここを埋めてください}</strong><br>
-            <span style="font-size: 14px; color: #888;">(${ここを埋めてください})</span>
+            <strong>${english}</strong><br>
+            <span style="font-size: 14px; color: #888;">(${japanese})</span>
         </div>
         <button class="btn-delete">&#128465;</button>
     `;
 
-    // 【ミッション7】完成した新しい <li> を、画面のリスト（phraseList）の一番下にくっつける
-    phraseList.appendChild(ここを埋めてください);
+    // 【ミッション8〜10】ゴミ箱ボタンの処理
+    const deleteBtn = newLi.querySelector(".btn-delete");
+    deleteBtn.addEventListener("click", function () {
+        const isSure = confirm("本当に削除しますか？");
+        if (isSure) {
+            newLi.remove();
+            // 💡 後でここに「メモ帳（localStorage）からも消す」処理を追加します
 
-    // 【おまけ】画面に追加し終わったら、次の入力のためにテキストボックスを空っぽに戻す！
+            // 👇ここを追加！（データからも消して、上書き保存する）
+            // filterの魔法：「今消した英語(english)と『違う』単語だけを残す！」
+            wordList = wordList.filter(function (word) {
+                return word.english !== english;
+            });
+            saveToLocalStorage();
+        }
+    });
+
+    // 【ミッション7】画面のリストにくっつける
+    phraseList.appendChild(newLi);
+};
+
+// 追加ボタンがクリックされた時の処理
+btnAdd.addEventListener("click", function () {
+
+    const englishText = englishInput.value;
+    const japaneseText = japaneseInput.value;
+
+    // 【ミッション4】空振り防止
+    if (englishText === "" || japaneseText === "") {
+        alert("英語と日本語の両方を入力してください！");
+        return;
+    }
+
+    // 🌟 さっき作った「工場」にデータを渡して、リスト作りをお任せする！
+    addPhraseToScreen(englishText, japaneseText);
+
+    // 👇ここを追加！(wordListに単語を追加して、メモ帳に保存)
+    wordList.push({ english: englishText, japanese: japaneseText });
+    saveToLocalStorage();
+
+    // 【おまけ】入力欄を空っぽにする
     englishInput.value = "";
     japaneseInput.value = "";
 
 });
-});
+
+// 【ミッション11】入力欄でEnterキーが押されたら、追加ボタンを自動クリックする
+const triggerAddOnEnter = function (event) {
+    // もし押されたキー(event.key)が "Enter" だったら
+    if (event.key === "Enter") {
+        btnAdd.click(); // プログラムの力で、追加ボタンを強制的に「カチッ」と押す！
+    }
+};
+
+// 英語入力欄と日本語入力欄のそれぞれに、「キーボードが押された時(keydown)」の耳をつける
+englishInput.addEventListener("keydown", triggerAddOnEnter);
+japaneseInput.addEventListener("keydown", triggerAddOnEnter);
+
+// 【ミッション15】ページを開いた時に、保存されたデータを読み込んで画面に復活させる！
+const loadFromLocalStorage = function() {
+    // メモ帳から "myWords" を探し出す
+    const savedData = localStorage.getItem("myWords");
+
+    // もしデータが空っぽじゃなかったら（過去に保存されていたら）
+    if (savedData !== null) {
+        // 文字列からJavaScriptのリスト（配列）に開封（パース）して復活！
+        wordList = JSON.parse(savedData);
+
+        // 保存されていた単語の数だけ、順番に工場を動かして画面に出す！
+        wordList.forEach(function(word) {
+            addPhraseToScreen(word.english, word.japanese);
+        });
+    }
+};
+
+// ページが開かれた瞬間に、読み込みスタート！
+loadFromLocalStorage();
