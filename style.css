@@ -98,3 +98,39 @@ h1 {
     border-radius: 4px;
     cursor: pointer;
 }
+/* 📋 リストエリアの見出し（h2）を整える */
+h2 {
+    font-size: 18px;
+    border-bottom: 2px solid #E5E5E5; /* 下に薄い線を引いて見やすく */
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+/* ul（リスト全体）のデフォルトの黒丸を消す */
+#phrase-list {
+    list-style-type: none; /* HTML標準の黒丸（・）を消す魔法 */
+    padding: 0; /* 左側の余分な余白を消す */
+}
+
+/* li（リストの1行分）をカードのようにふっくらさせる */
+#phrase-list li {
+    background-color: #FFFFFF; /* 白いカードにする */
+    padding: 15px; /* 内側に余白 */
+    border-radius: 8px; /* 角丸 */
+    margin-bottom: 10px; /* カード同士の隙間 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* うっすら影をつける */
+    
+    /* 👇 ここからがレイアウトの超重要ポイント！ */
+    display: flex; /* 中身を「横並び」にする魔法 */
+    justify-content: space-between; /* 要素を左右の端に散らす */
+    align-items: center; /* 縦の真ん中を綺麗に揃える */
+}
+
+/* 🗑 削除ボタンを整える */
+.btn-delete {
+    background: none; /* ボタン特有のグレーの背景を消す */
+    border: none; /* 枠線を消す */
+    color: #C2847A; /* 落ち着いた赤色（アースカラー） */
+    font-size: 20px; /* 少し大きく */
+    cursor: pointer;
+}
