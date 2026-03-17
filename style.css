@@ -1,39 +1,32 @@
-/* style.css */
+/* style.css (アースカラー × モダンデザイン完全版) */
 
 /* 🎨 全体の基本設定（アースカラー） */
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #F9F6F0;
-    /* 背景をアイボリーに */
-    color: #4A4A4A;
-    /* 文字をチャコールグレーに */
+    background-color: #F9F6F0; /* 背景をアイボリーに */
+    color: #4A4A4A; /* 文字をチャコールグレーに */
     margin: 0;
     display: flex;
-    justify-content: center;
-    /* 画面を中央寄せ */
+    justify-content: center; /* 画面を中央寄せ */
 }
 
 /* 📱 スマホサイズのコンテナ（白い枠） */
 .app-container {
     width: 100%;
-    max-width: 400px;
-    /* スマホの最大幅 */
-    background-color: #FFFFFF;
-    /* コンテナの中は白 */
-    min-height: 100vh;
-    /* 画面の高さいっぱいに */
+    max-width: 400px; /* スマホの最大幅 */
+    background-color: #FFFFFF; /* コンテナの中は白 */
+    min-height: 100vh; /* 画面の高さいっぱいに */
     padding: 20px;
     box-sizing: border-box;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-    /* うっすら影をつける */
+    /* 🌟プロの魔法1：コンテナ全体の影を少しリッチに */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); 
 }
 
 /* 📝 ヘッダー（タイトル） */
 h1 {
     font-size: 24px;
     text-align: center;
-    color: #6B705C;
-    /* 深みのあるグリーン */
+    color: #6B705C; /* 深みのあるグリーン */
 }
 
 /* スタートボタンの色、枠線 */
@@ -42,19 +35,21 @@ h1 {
     color: white;
     border-radius: 8px;
     width: 100%;
-    /* 横幅いっぱいに広げる */
     padding: 15px;
-    /* 内側に余白を作ってふっくら（タップしやすく）させる */
     border: none;
-    /* デフォルトの枠線を消す */
     font-size: 18px;
-    /* 文字を少し大きく */
     font-weight: bold;
-    /* 文字を太く */
     cursor: pointer;
-    /* PCで見た時、マウスを乗せたら指のマークにする */
     margin-bottom: 30px;
-    /* 下に隙間を空ける */
+    /* 🌟プロの魔法2：ボタンにもうっすら影をつけ、滑らかに動かす */
+    box-shadow: 0 4px 6px rgba(138, 154, 91, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* 🌟プロの魔法3：ボタンにマウスを乗せるとフワッと浮く */
+.btn-start:hover {
+    background-color: #76854b;
+    transform: translateY(-2px);
 }
 
 /* 練習画面を非表示にする */
@@ -65,7 +60,6 @@ h1 {
 /* 🖋 入力エリア全体を整える */
 .input-area {
     background-color: #F9F6F0;
-    /* アプリ背景と同じアイボリーにして馴染ませる */
     padding: 15px;
     border-radius: 8px;
     margin-bottom: 30px;
@@ -74,63 +68,98 @@ h1 {
 /* 入力エリアの中にある input（テキストボックス）を整える */
 .input-area input {
     width: 100%;
-    /* 横幅いっぱいに */
-    padding: 10px;
-    /* 内側に余白を */
+    padding: 12px; /* 余白を少し増やして入力しやすく */
     margin-bottom: 10px;
-    /* テキストボックス同士の間に隙間を */
     border: 1px solid #D4D4D4;
-    /* 薄いグレーの枠線 */
-    border-radius: 4px;
-    /* 少しだけ角丸に */
+    border-radius: 6px;
     box-sizing: border-box;
-    /* 枠線の太さも含めて横幅100%にする魔法のコード */
+    outline: none; /* デフォルトの黒枠を消す */
+    transition: all 0.3s ease;
+}
+
+/* 🌟プロの魔法4：入力欄をクリックした時、テーマカラーで綺麗に光る */
+.input-area input:focus {
+    border-color: #8A9A5B; 
+    box-shadow: 0 0 8px rgba(138, 154, 91, 0.3);
 }
 
 /* 「＋追加する」ボタンを整える */
 .btn-add {
     width: 100%;
-    padding: 10px;
-    background-color: #C89F82;
-    /* モカブラウン */
+    padding: 12px;
+    background-color: #C89F82; /* モカブラウン */
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
+
+.btn-add:hover {
+    background-color: #b58d70;
+    transform: translateY(-2px);
+}
+
 /* 📋 リストエリアの見出し（h2）を整える */
 h2 {
     font-size: 18px;
-    border-bottom: 2px solid #E5E5E5; /* 下に薄い線を引いて見やすく */
+    border-bottom: 2px solid #E5E5E5;
     padding-bottom: 5px;
     margin-bottom: 15px;
 }
 
 /* ul（リスト全体）のデフォルトの黒丸を消す */
 #phrase-list {
-    list-style-type: none; /* HTML標準の黒丸（・）を消す魔法 */
-    padding: 0; /* 左側の余分な余白を消す */
+    list-style-type: none;
+    padding: 0;
 }
 
 /* li（リストの1行分）をカードのようにふっくらさせる */
 #phrase-list li {
-    background-color: #FFFFFF; /* 白いカードにする */
-    padding: 15px; /* 内側に余白 */
-    border-radius: 8px; /* 角丸 */
-    margin-bottom: 10px; /* カード同士の隙間 */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* うっすら影をつける */
-    
-    /* 👇 ここからがレイアウトの超重要ポイント！ */
-    display: flex; /* 中身を「横並び」にする魔法 */
-    justify-content: space-between; /* 要素を左右の端に散らす */
+    background-color: #FFFFFF;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    /* 🌟プロの魔法5：リストのカードに柔らかい影をつける */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06); 
+    display: flex;
     align-items: center; /* 縦の真ん中を綺麗に揃える */
+    transition: transform 0.2s;
+}
+
+/* リストカードにマウスを乗せると少し浮き上がる */
+#phrase-list li:hover {
+    transform: translateY(-2px);
+}
+
+/* チェックボックスとテキストの間隔をあける */
+#phrase-list li input[type="checkbox"] {
+    margin-right: 15px;
+    transform: scale(1.2); /* チェックボックスを少し大きく押しやすく */
+    cursor: pointer;
+}
+
+/* 🌟プロの魔法6：テキスト部分が「空きスペース」をしっかり埋めるようにする */
+#phrase-list li div {
+    flex-grow: 1; 
 }
 
 /* 🗑 削除ボタンを整える */
 .btn-delete {
-    background: none; /* ボタン特有のグレーの背景を消す */
-    border: none; /* 枠線を消す */
+    background: none;
+    border: none;
     color: #C2847A; /* 落ち着いた赤色（アースカラー） */
-    font-size: 20px; /* 少し大きく */
+    font-size: 20px;
     cursor: pointer;
+    padding: 5px 10px; /* タップしやすくする */
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+/* 削除ボタンにマウスを乗せると、ふんわり赤い背景が出る */
+.btn-delete:hover {
+    background-color: rgba(194, 132, 122, 0.1);
+    transform: scale(1.1); /* 少し大きく */
 }

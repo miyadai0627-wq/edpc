@@ -83,6 +83,11 @@ btnAdd.addEventListener("click", function () {
 
 // 【ミッション11】入力欄でEnterキーが押されたら、追加ボタンを自動クリックする
 const triggerAddOnEnter = function (event) {
+    // もし「日本語の変換中（確定前）」だったら、ここでストップする！
+    if (event.isComposing) {
+        return; 
+    }
+    
     // もし押されたキー(event.key)が "Enter" だったら
     if (event.key === "Enter") {
         btnAdd.click(); // プログラムの力で、追加ボタンを強制的に「カチッ」と押す！
