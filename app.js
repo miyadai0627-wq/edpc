@@ -1,3 +1,9 @@
+// 練習モード用の要素を捕まえる
+const btnStart = document.querySelector(".btn-start"); // 練習スタートボタン
+const practiceArea = document.getElementById("practice-area"); // 練習画面エリア
+const btnBack = document.querySelector(".btn-back"); // 戻るボタン
+const qText = practiceArea.querySelector("h3"); // 問題文を表示する場所
+
 // 【ミッション13-1】すべての単語データを記憶しておく大元の箱（配列）
 let wordList = [];
 
@@ -117,3 +123,31 @@ const loadFromLocalStorage = function() {
 
 // ページが開かれた瞬間に、読み込みスタート！
 loadFromLocalStorage();
+
+// 1. 練習スタートボタンを押した時
+btnStart.addEventListener("click", function() {
+    // もし単語が1つもなかったら、練習を始めない
+    if (wordList.length === 0) {
+        alert("まずは単語を追加してください！");
+        return;
+    }
+
+    // 画面を切り替える
+    // (一覧に関係するものを隠して、練習エリアを表示する)
+    document.querySelector("h1").style.display = "none";
+    document.querySelector(".input-area").style.display = "none";
+    document.querySelector("h2").style.display = "none";
+    phraseList.style.display = "none";
+    btnStart.style.display = "none";
+
+    practiceArea.style.display = "block"; // 練習画面を「現れろ！」とする
+
+    // 最初の単語をセットする（とりあえず0番目の英語を表示）
+    qText.textContent = wordList[0].english;
+});
+
+// 2. 「一覧に戻る」ボタンを押した時
+btnBack.addEventListener("click", function() {
+    // 画面を元に戻す（リロードしちゃうのが一番手っ取り早いですが、今回は丁寧に！）
+    location.reload(); // ページを再読み込みして初期状態に戻す魔法
+});
