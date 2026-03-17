@@ -22,15 +22,25 @@
         <h2>Myフレーズ一覧</h2>
         <ul id="phrase-list">
             <li>
-                <input type="checkbox"> <div>
+                <input type="checkbox">
+                <div>
                     <strong>I'll be right back.</strong><br>
                     <span style="font-size: 14px; color: #888;">(すぐ戻ります)</span>
                 </div>
-                <button class="btn-delete">&#128465;</button> </li>
-            </ul>
+                <button class="btn-delete">&#128465;</button>
+            </li>
+        </ul>
         <div id="practice-area" class="practice-area">
-            <button class="btn-back">&lt;一覧に戻る</button>
-            <h3>Sounds good to me.</h3>
+            <button class="btn-back">&lt; 一覧に戻る</button>
+
+            <p id="practice-counter" style="color: #8A9A5B; font-weight: bold;"></p>
+
+            <h3 id="question-text">Question Area</h3>
+
+            <div class="practice-controls">
+                <button id="btn-show-answer" class="btn-add">答えを表示</button>
+                <button id="btn-next-question" class="btn-start" style="display: none;">次の問題へ</button>
+            </div>
         </div>
     </div>
     <script src="app.js"></script>
