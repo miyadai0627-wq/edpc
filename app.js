@@ -124,30 +124,78 @@ const loadFromLocalStorage = function() {
 // ページが開かれた瞬間に、読み込みスタート！
 loadFromLocalStorage();
 
-// 1. 練習スタートボタンを押した時
+// ==========================================
+// 🌟 アップデート版：練習モードのロジック
+// ==========================================
+
+let currentIndex = 0; // 今何問目かを数える数字
+const btnShowAnswer = document.getElementById("btn-show-answer");
+const btnNext = document.getElementById("btn-next-question");
+const pCounter = document.getElementById("practice-counter");
+
+// 【ミッション17・19修正】練習スタートボタンを押した時
 btnStart.addEventListener("click", function() {
-    // もし単語が1つもなかったら、練習を始めない
     if (wordList.length === 0) {
         alert("まずは単語を追加してください！");
         return;
     }
 
-    // 画面を切り替える
-    // (一覧に関係するものを隠して、練習エリアを表示する)
+    // 画面を切り替える（要素を隠す）
     document.querySelector("h1").style.display = "none";
     document.querySelector(".input-area").style.display = "none";
     document.querySelector("h2").style.display = "none";
     phraseList.style.display = "none";
     btnStart.style.display = "none";
 
-    practiceArea.style.display = "block"; // 練習画面を「現れろ！」とする
+    practiceArea.style.display = "block"; // 練習画面を表示
 
-    // 最初の単語をセットする（とりあえず0番目の英語を表示）
-    qText.textContent = wordList[0].english;
+    currentIndex = 0; // 1問目からスタート
+    showQuestion();   // 問題を表示する
 });
 
-// 2. 「一覧に戻る」ボタンを押した時
+// 【追加】問題を表示する専用の関数
+const showQuestion = function() {
+    const currentWord = wordList[currentIndex];
+    
+    // カウンターの表示 (例: 1 / 5)
+    pCounter.textContent = `${currentIndex + 1} / ${wordList.length}`;
+    
+    // 英語を表示（idで指定した要素に書き込む）
+    const questionElement = document.getElementById("question-text");
+    questionElement.textContent = currentWord.english;
+    questionElement.style.color = "#4A4A4A";
+
+    // ボタンの表示切り替え（答え表示ボタンを出し、次へボタンを隠す）
+    btnShowAnswer.style.display = "block";
+    btnNext.style.display = "none";
+};
+
+// 【追加】「答えを表示」ボタンを押した時
+btnShowAnswer.addEventListener("click", function() {
+    const currentWord = wordList[currentIndex];
+    const questionElement = document.getElementById("question-text");
+    
+    // 英語の下に日本語を追加して表示
+    questionElement.innerHTML = `${currentWord.english}<br><span style="color: #C89F82; font-size: 0.8em;">${currentWord.japanese}</span>`;
+    
+    // ボタンを入れ替える
+    btnShowAnswer.style.display = "none";
+    btnNext.style.display = "block";
+});
+
+// 【追加】「次の問題へ」ボタンを押した時
+btnNext.addEventListener("click", function() {
+    currentIndex++; // 次の番号へ
+
+    if (currentIndex >= wordList.length) {
+        alert("全問終了！お疲れ様でした！");
+        location.reload(); // 一覧に戻る
+    } else {
+        showQuestion(); // 次の問題へ
+    }
+});
+
+// 「一覧に戻る」ボタン（これはそのまま残す）
 btnBack.addEventListener("click", function() {
-    // 画面を元に戻す（リロードしちゃうのが一番手っ取り早いですが、今回は丁寧に！）
-    location.reload(); // ページを再読み込みして初期状態に戻す魔法
+    location.reload();
 });
