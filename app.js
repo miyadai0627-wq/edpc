@@ -321,10 +321,10 @@ btnStart.addEventListener("click", function () {
 
 // 【追加】問題を表示する専用の関数
 const showQuestion = function () {
-    const currentWord = wordList[currentIndex];
+    const currentWord = practiceList[currentIndex];
 
     // カウンターの表示 (例: 1 / 5)
-    pCounter.textContent = `${currentIndex + 1} / ${wordList.length}`;
+    pCounter.textContent = `${currentIndex + 1} / ${practiceList.length}`;
 
     // 英語を表示（idで指定した要素に書き込む）
     const questionElement = document.getElementById("question-text");
@@ -338,7 +338,7 @@ const showQuestion = function () {
 
 // 【追加】「答えを表示」ボタンを押した時
 btnShowAnswer.addEventListener("click", function () {
-    const currentWord = wordList[currentIndex];
+    const currentWord = practiceList[currentIndex];
     const questionElement = document.getElementById("question-text");
 
     // 英語の下に日本語を追加して表示
