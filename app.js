@@ -408,6 +408,30 @@ if (!SpeechRecognition) {
     recognition.lang = "en-US"; // 英語（アメリカ）を聞き取る設定
     recognition.interimResults = false; // 喋り終わるまで待ってから結果を出す
 
+    // 🌟 【追加】おしい！判定のための計算マシン（何パーセント合っているか計算する）
+    const calculateMatchPercentage = function (spoken, correct) {
+        // 1. どっちも小文字にして、記号を消す（純粋な単語勝負にするため）
+        const cleanSpoken = spoken.toLowerCase().replace(/[.,!?]/g, "");
+        const cleanCorrect = correct.toLowerCase().replace(/[.,!?]/g, "");
+
+        // 2. スペースで区切って「単語のリスト（配列）」にする
+        const spokenWords = cleanSpoken.split(" ");
+        const correctWords = cleanCorrect.split(" ");
+
+        // 3. 正解の単語のうち、いくつ言えたか数える
+        let matchCount = 0;
+        correctWords.forEach(function (word) {
+            // もし喋った言葉の中に、正解の単語が含まれていたらカウントアップ！
+            if (spokenWords.includes(word)) {
+                matchCount++;
+            }
+        });
+
+        // 4. パーセンテージを計算する（正解した数 ÷ 正解の全単語数 × 100）
+        const percentage = (matchCount / correctWords.length) * 100;
+        return percentage;
+    };
+
     // ③ マイクボタンが押された時の処理（録音スタート！）
     btnMic.addEventListener("click", function () {
         heardTextElement.textContent = "🎤 聞き取り中...";
@@ -421,20 +445,19 @@ if (!SpeechRecognition) {
         const userSpeech = event.results[0][0].transcript;
         heardTextElement.textContent = `あなたの発音: ${userSpeech}`;
 
-        // 🌟 今画面に出ている「正解の英語」を取得（※ここで1回だけ箱を作る！）
+        // 🌟 今画面に出ている「正解の英語」を取得
         const currentWord = practiceList[currentIndex].english;
         console.log(`🎤 マイク: [${userSpeech}]`);
         console.log(`📖 正 解: [${currentWord}]`);
-        // 🌟 判定結果を入れる箱を準備（最初は「不正解」にしておく）
+        
+        // 🌟 判定結果を入れる箱を準備
         let isCorrect = false;
 
         if (isStrict) {
             // 【厳しめモード】
-            // 前後のスペースだけ消して、大文字小文字・記号もそのまま完全に一致するか比べる！
             isCorrect = (userSpeech.trim() === currentWord.trim());
         } else {
-            // 【ゆるめモード】（今まで通りの優しい判定）
-            // 全部小文字にして、記号を消して比べる！
+            // 【ゆるめモード】
             const cleanUserSpeech = userSpeech.toLowerCase().replace(/[.,!?]/g, "").trim();
             const cleanCorrectWord = currentWord.toLowerCase().replace(/[.,!?]/g, "").trim();
             isCorrect = (cleanUserSpeech === cleanCorrectWord);
@@ -445,22 +468,30 @@ if (!SpeechRecognition) {
             judgmentResultElement.textContent = "Excellent!! 🎉";
             judgmentResultElement.style.color = "#8A9A5B";
         } else {
-            judgmentResultElement.textContent = "Try again! 💪";
-            judgmentResultElement.style.color = "#C2847A";
+            // 🌟 ここから「おしい！」の分岐を追加！
+            const matchPercent = calculateMatchPercentage(userSpeech, currentWord);
+            console.log(`📊 一致度: ${matchPercent}%`);
+
+            if (matchPercent >= 50) {
+                // 50%以上合っていたら「おしい！」
+                judgmentResultElement.textContent = `Almost! おしい！ (${Math.round(matchPercent)}%) 😲`;
+                judgmentResultElement.style.color = "#C89F82"; // モカブラウン
+            } else {
+                // 半分も合っていなかったら Try again!
+                judgmentResultElement.textContent = "Try again! 💪";
+                judgmentResultElement.style.color = "#C2847A"; // 赤
+            }
         }
-    };
+    }; // <--- onresult の終わり
 
     // （おまけ）もしエラーが起きた時や、何も聞き取れなかった時の処理
     recognition.onerror = function (event) {
         heardTextElement.textContent = "うまく聞き取れませんでした。もう一度試してください。";
     };
-}
+} // <--- 🌟🌟 これが消えていた「else」の終わりのカッコです！！
 
 // 🔊 練習画面のスピーカーボタンが押された時の処理
 btnPracticeSpeak.addEventListener("click", function () {
-    // あなたが導き出した「今の問題」を取り出すロジック！
     const currentWord = practiceList[currentIndex];
-
-    // その英語を音声マシンに渡して喋らせる！
     speakEnglish(currentWord.english);
 });
