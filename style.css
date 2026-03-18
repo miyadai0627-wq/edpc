@@ -294,3 +294,26 @@ h2 {
     cursor: pointer;
     margin-right: 10px;
 }
+
+/* =========================================
+   厳しさ切り替えボタン のデザイン
+========================================= */
+
+/* 通常時（ゆるめ）のデザイン */
+.btn-strictness {
+    background-color: #E5E5E5;
+    color: #4A4A4A;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* 🌟 JSの力でこのクラスが付いた時だけ、色が「厳しめ（赤）」に変わる！ */
+.btn-strictness.strict-mode {
+    background-color: #C2847A; /* アースカラーの赤 */
+    color: white;
+}
