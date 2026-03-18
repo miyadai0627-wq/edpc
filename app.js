@@ -127,6 +127,20 @@ const saveToLocalStorage = function () {
     localStorage.setItem("myWords", JSON.stringify(wordList));
 };
 
+// 【音声マシン】英語を読み上げる専用の関数
+const speakEnglish = function(text) {
+    if (!window.speechSynthesis) {
+        alert("お使いのブラウザは音声読み上げに対応していません。");
+        return;
+    }
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-US";
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+    window.speechSynthesis.speak(utterance);
+};
+
 // 1. 追加ボタンを捕まえる
 const btnAdd = document.getElementById("btn-add");
 
