@@ -52,9 +52,76 @@ h1 {
     transform: translateY(-2px);
 }
 
+/* =========================================
+   練習エリア (Practice Area) のデザイン
+========================================= */
+
 /* 練習画面を非表示にする */
 .practice-area {
     display: none;
+}
+
+/* カウンター（例：1 / 5） */
+#word-counter {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* 問題文（英語） */
+#question-text {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* 答えの文（日本語） */
+#answer-text {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+/* 次へボタン（最初は隠しておく） */
+#btn-next {
+    display: none;
+}
+
+/* 一覧に戻るボタン（色を変えて区別） */
+#btn-back {
+    margin-top: 20px;
+    background-color: #95a5a6;
+}
+
+/* =========================================
+   マイク・発音判定エリア のデザイン
+========================================= */
+
+/* マイクエリアを囲むグレーの枠 */
+.mic-area {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+/* マイクボタン */
+#btn-mic {
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* 聞き取ったテキスト */
+#heard-text {
+    color: #555;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* 判定結果（Excellent! など） */
+#judgment-result {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
 }
 
 /* 🖋 入力エリア全体を整える */
