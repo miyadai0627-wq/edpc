@@ -53,61 +53,85 @@ h1 {
 }
 
 /* =========================================
-   練習エリア (Practice Area) のデザイン
+   練習エリア (Practice Area) のデザイン（フラッシュカード風）
 ========================================= */
 
-/* 練習画面を非表示にする */
+/* 練習エリア全体をカードのように浮かせる */
 .practice-area {
     display: none;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 40px 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    text-align: center; /* 全体を中央揃えにして美しく */
+    border: 1px solid #F0ECE1;
+}
+
+/* Practiceという見出し */
+.practice-area h2 {
+    border-bottom: none;
+    color: #C89F82;
+    margin-top: 0;
+    margin-bottom: 5px;
 }
 
 /* カウンター（例：1 / 5） */
 #word-counter {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 10px;
+    color: #8A9A5B;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
 }
 
 /* 問題文（英語） */
 #question-text {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 32px; /* ドンと大きく表示 */
+    color: #4A4A4A;
+    margin: 30px 0;
+    line-height: 1.4;
+    letter-spacing: 1px;
 }
 
 /* 答えの文（日本語） */
 #answer-text {
-    font-size: 20px;
-    margin-bottom: 20px;
-}
-
-/* 次へボタン（最初は隠しておく） */
-#btn-next {
-    display: none;
-}
-
-/* 一覧に戻るボタン（色を変えて区別） */
-#btn-back {
-    margin-top: 20px;
-    background-color: #95a5a6;
+    font-size: 22px;
+    color: #C89F82;
+    margin-bottom: 30px;
+    font-weight: bold;
 }
 
 /* =========================================
    マイク・発音判定エリア のデザイン
 ========================================= */
 
-/* マイクエリアを囲むグレーの枠 */
+/* マイクエリアの枠 */
 .mic-area {
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
+    margin: 20px 0 30px 0;
+    padding: 25px 20px;
+    background-color: #F9F6F0;
+    border-radius: 12px;
+    border: 2px dashed #D4D4D4; /* 点線でオシャレな録音エリア風に */
 }
 
 /* マイクボタン */
 #btn-mic {
+    background-color: #FFFFFF;
+    border: 2px solid #4A4A4A;
+    color: #4A4A4A;
+    border-radius: 50px; /* 角を完全に丸くしてモダンに */
+    padding: 12px 30px;
     font-size: 16px;
-    padding: 10px 20px;
+    font-weight: bold;
     cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+/* マイクボタンにマウスを乗せた時の動き */
+#btn-mic:hover {
+    background-color: #4A4A4A;
+    color: #FFFFFF;
+    transform: translateY(-2px);
 }
 
 /* 聞き取ったテキスト */
