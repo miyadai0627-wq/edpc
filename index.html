@@ -19,17 +19,23 @@
             <input id="japanese-input" type="text" name="JapaneseInput" placeholder="日本語を入力…">
             <button id="btn-add" class="btn-add">&plus;追加する</button>
         </div>
+
         <h2>Myフレーズ一覧</h2>
         <button id="btn-all-delete" class="btn-delete">🗑 すべての単語を消去する</button>
         <ul id="phrase-list"></ul>
         <div id="practice-area" class="practice-area">
+
             <h2>Practice</h2>
             <p id="word-counter">1 / 5</p>
             <div class="question-container">
                 <h3 id="question-text">問題がここに出ます</h3>
                 <button id="btn-practice-speak" class="btn-speak">&#128266;</button>
             </div>
+
             <div class="mic-area">
+                <div style="text-align: right; margin-bottom: 10px;">
+                    <button id="btn-strictness" class="btn-strictness">判定：ゆるめ 🟢</button>
+                </div>
                 <button id="btn-mic">🎤 発音をテスト</button>
                 <p id="heard-text">（ここに聞き取った英語が出ます）</p>
                 <p id="judgment-result"></p>
