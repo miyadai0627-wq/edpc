@@ -423,7 +423,8 @@ if (!SpeechRecognition) {
 
         // 🌟 今画面に出ている「正解の英語」を取得（※ここで1回だけ箱を作る！）
         const currentWord = practiceList[currentIndex].english;
-
+        console.log(`🎤 マイク: [${userSpeech}]`);
+        console.log(`📖 正 解: [${currentWord}]`);
         // 🌟 判定結果を入れる箱を準備（最初は「不正解」にしておく）
         let isCorrect = false;
 
