@@ -1,7 +1,7 @@
 // 練習モード用の要素を捕まえる
 const btnStart = document.querySelector(".btn-start"); // 練習スタートボタン
 const practiceArea = document.getElementById("practice-area"); // 練習画面エリア
-const btnBack = document.querySelector(".btn-back"); // 戻るボタン
+const btnBack = document.getElementById("btn-back"); // 戻るボタン
 const qText = practiceArea.querySelector("h3"); // 問題文を表示する場所
 const btnAllDelete = document.getElementById("btn-all-delete"); // すべての単語を消去するボタン
 
