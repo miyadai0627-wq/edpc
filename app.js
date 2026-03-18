@@ -166,9 +166,9 @@ const addPhraseToScreen = function (english, japanese) {
         <input type="checkbox">
         <div>
             <strong>${english}</strong><br>
-            <span style="font-size: 14px; color: #888;">(${japanese})</span>
+            <span class="phrase-japanese">(${japanese})</span>
         </div>
-        <button class="btn-speak" style="background: none; border: none; font-size: 20px; cursor: pointer; margin-right: 10px;">&#128266;</button>
+        <button class="btn-speak">&#128266;</button>
         <button class="btn-delete">&#128465;</button>
     `;
 
