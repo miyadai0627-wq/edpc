@@ -289,8 +289,8 @@ loadFromLocalStorage();
 
 let currentIndex = 0; // 今何問目かを数える数字
 const btnShowAnswer = document.getElementById("btn-show-answer");
-const btnNext = document.getElementById("btn-next-question");
-const pCounter = document.getElementById("practice-counter");
+const btnNext = document.getElementById("btn-next");
+const pCounter = document.getElementById("word-counter");
 
 // 【ミッション17・19修正】練習スタートボタンを押した時
 btnStart.addEventListener("click", function () {
@@ -368,3 +368,63 @@ btnNext.addEventListener("click", function () {
 btnBack.addEventListener("click", function () {
     location.reload();
 });
+
+// ==========================================
+// 🎙️ ラスボス：発音判定機能（Speech Recognition）
+// ==========================================
+
+// ① HTMLの新しい要素を捕まえる
+const btnMic = document.getElementById("btn-mic");
+const heardTextElement = document.getElementById("heard-text");
+const judgmentResultElement = document.getElementById("judgment-result");
+
+// ② ブラウザの「音声認識マシン」を準備する（ChromeとSafariの両方に対応させる魔法のおまじない）
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+// もしブラウザが対応していなかったら警告を出す
+if (!SpeechRecognition) {
+    alert("お使いのブラウザは音声認識に対応していません。ChromeかSafariをご利用ください。");
+} else {
+    // マシンの初期設定
+    const recognition = new SpeechRecognition();
+    recognition.lang = "en-US"; // 英語（アメリカ）を聞き取る設定
+    recognition.interimResults = false; // 喋り終わるまで待ってから結果を出す
+
+    // ③ マイクボタンが押された時の処理（録音スタート！）
+    btnMic.addEventListener("click", function () {
+        heardTextElement.textContent = "🎤 聞き取り中...";
+        judgmentResultElement.textContent = ""; // 前の結果を消す
+        recognition.start(); // 録音開始！
+    });
+
+    // ④ ブラウザが声を聞き取って、文字に変換し終わった時の処理
+    recognition.onresult = function (event) {
+        // 聞き取った英語を箱に入れる
+        const userSpeech = event.results[0][0].transcript;
+        heardTextElement.textContent = `あなたの発音: ${userSpeech}`;
+
+        // 今画面に出ている「正解の英語」を取得
+        const currentWord = practiceList[currentIndex].english;
+
+        // 🌟 ここが「ゆるめ判定」の工夫！
+        // .toLowerCase() で全部小文字にする
+        // .replace(/[.,!?]/g, "") でピリオドやカンマなどの記号を消す
+        // .trim() で前後の余分なスペースを消す
+        const cleanUserSpeech = userSpeech.toLowerCase().replace(/[.,!?]/g, "").trim();
+        const cleanCorrectWord = currentWord.toLowerCase().replace(/[.,!?]/g, "").trim();
+
+        // ⑤ あなたが考えた「完全一致（===）」で判定！
+        if (cleanUserSpeech === cleanCorrectWord) {
+            judgmentResultElement.textContent = "Excellent!! 🎉";
+            judgmentResultElement.style.color = "#8A9A5B"; // 綺麗なグリーン
+        } else {
+            judgmentResultElement.textContent = "Try again! 💪";
+            judgmentResultElement.style.color = "#C2847A"; // アースカラーの赤
+        }
+    };
+
+    // （おまけ）もしエラーが起きた時や、何も聞き取れなかった時の処理
+    recognition.onerror = function(event) {
+        heardTextElement.textContent = "うまく聞き取れませんでした。もう一度試してください。";
+    };
+}
