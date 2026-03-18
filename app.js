@@ -378,9 +378,26 @@ btnBack.addEventListener("click", function () {
 const btnMic = document.getElementById("btn-mic");
 const heardTextElement = document.getElementById("heard-text");
 const judgmentResultElement = document.getElementById("judgment-result");
+const btnStrictness = document.getElementById("btn-strictness");
+let isStrict = false; // 最初は「ゆるめ（厳しくない）」にしておく
 
 // ② ブラウザの「音声認識マシン」を準備する（ChromeとSafariの両方に対応させる魔法のおまじない）
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+// 🌟 厳しさ切り替えボタンが押された時の処理
+btnStrictness.addEventListener("click", function () {
+    isStrict = !isStrict; // trueとfalseをひっくり返す魔法！
+
+    if (isStrict) {
+        // 厳しめモードになった時
+        btnStrictness.textContent = "判定：厳しめ 🔴";
+        btnStrictness.classList.add("strict-mode"); // CSSで赤くする
+    } else {
+        // ゆるめモードに戻った時
+        btnStrictness.textContent = "判定：ゆるめ 🟢";
+        btnStrictness.classList.remove("strict-mode"); // 赤色を解除する
+    }
+});
 
 // もしブラウザが対応していなかったら警告を出す
 if (!SpeechRecognition) {
@@ -404,28 +421,36 @@ if (!SpeechRecognition) {
         const userSpeech = event.results[0][0].transcript;
         heardTextElement.textContent = `あなたの発音: ${userSpeech}`;
 
-        // 今画面に出ている「正解の英語」を取得
+        // 🌟 今画面に出ている「正解の英語」を取得（※ここで1回だけ箱を作る！）
         const currentWord = practiceList[currentIndex].english;
 
-        // 🌟 ここが「ゆるめ判定」の工夫！
-        // .toLowerCase() で全部小文字にする
-        // .replace(/[.,!?]/g, "") でピリオドやカンマなどの記号を消す
-        // .trim() で前後の余分なスペースを消す
-        const cleanUserSpeech = userSpeech.toLowerCase().replace(/[.,!?]/g, "").trim();
-        const cleanCorrectWord = currentWord.toLowerCase().replace(/[.,!?]/g, "").trim();
+        // 🌟 判定結果を入れる箱を準備（最初は「不正解」にしておく）
+        let isCorrect = false;
 
-        // ⑤ あなたが考えた「完全一致（===）」で判定！
-        if (cleanUserSpeech === cleanCorrectWord) {
+        if (isStrict) {
+            // 【厳しめモード】
+            // 前後のスペースだけ消して、大文字小文字・記号もそのまま完全に一致するか比べる！
+            isCorrect = (userSpeech.trim() === currentWord.trim());
+        } else {
+            // 【ゆるめモード】（今まで通りの優しい判定）
+            // 全部小文字にして、記号を消して比べる！
+            const cleanUserSpeech = userSpeech.toLowerCase().replace(/[.,!?]/g, "").trim();
+            const cleanCorrectWord = currentWord.toLowerCase().replace(/[.,!?]/g, "").trim();
+            isCorrect = (cleanUserSpeech === cleanCorrectWord);
+        }
+
+        // 🌟 判定結果（isCorrect）が true なら Excellent!!
+        if (isCorrect) {
             judgmentResultElement.textContent = "Excellent!! 🎉";
-            judgmentResultElement.style.color = "#8A9A5B"; // 綺麗なグリーン
+            judgmentResultElement.style.color = "#8A9A5B";
         } else {
             judgmentResultElement.textContent = "Try again! 💪";
-            judgmentResultElement.style.color = "#C2847A"; // アースカラーの赤
+            judgmentResultElement.style.color = "#C2847A";
         }
     };
 
     // （おまけ）もしエラーが起きた時や、何も聞き取れなかった時の処理
-    recognition.onerror = function(event) {
+    recognition.onerror = function (event) {
         heardTextElement.textContent = "うまく聞き取れませんでした。もう一度試してください。";
     };
 }
@@ -434,7 +459,7 @@ if (!SpeechRecognition) {
 btnPracticeSpeak.addEventListener("click", function () {
     // あなたが導き出した「今の問題」を取り出すロジック！
     const currentWord = practiceList[currentIndex];
-    
+
     // その英語を音声マシンに渡して喋らせる！
     speakEnglish(currentWord.english);
 });
