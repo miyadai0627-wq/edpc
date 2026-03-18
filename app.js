@@ -128,7 +128,7 @@ const saveToLocalStorage = function () {
 };
 
 // 【音声マシン】英語を読み上げる専用の関数
-const speakEnglish = function(text) {
+const speakEnglish = function (text) {
     if (!window.speechSynthesis) {
         alert("お使いのブラウザは音声読み上げに対応していません。");
         return;
@@ -160,14 +160,22 @@ const addPhraseToScreen = function (english, japanese) {
     const newLi = document.createElement("li");
 
     // 【ミッション6】中身を流し込む（変数の名前に注意！）
+    // 🌟 変更ポイント①：HTMLの中にスピーカーボタン（btn-speak）を追加！
     newLi.innerHTML = `
         <input type="checkbox">
         <div>
             <strong>${english}</strong><br>
             <span style="font-size: 14px; color: #888;">(${japanese})</span>
         </div>
+        <button class="btn-speak" style="background: none; border: none; font-size: 20px; cursor: pointer; margin-right: 10px;">&#128266;</button>
         <button class="btn-delete">&#128465;</button>
     `;
+
+    // 🌟 変更ポイント②：追加！スピーカーボタンが押されたら英語を喋る耳をつける
+    const speakBtn = newLi.querySelector(".btn-speak");
+    speakBtn.addEventListener("click", function () {
+        speakEnglish(english); // さっき作った音声マシンを動かす！
+    });
 
     // 【ミッション8〜10】ゴミ箱ボタンの処理
     const deleteBtn = newLi.querySelector(".btn-delete");
@@ -216,20 +224,20 @@ btnAdd.addEventListener("click", function () {
 });
 
 btnAllDelete.addEventListener("click", function () {
-    
+
     // 間違えて押した時のための確認メッセージ
     const isSure = confirm("本当にすべての単語を消去しますか？（この操作は取り消せません）");
-    
+
     // もし「はい（OK）」が押されたら…
     if (isSure) {
         // ③ あなたが組み立てた完璧な順番（B → C → A）を実行！
-        
+
         // 【Bの呪文】JSの大元の箱を空っぽにする
         wordList = [];
-        
+
         // 【Cの呪文】空っぽになった状態をメモ帳に上書き保存する
         saveToLocalStorage();
-        
+
         // 【Aの呪文】画面のリストを空っぽ（""）にして、見た目を真っ白にする
         phraseList.innerHTML = "";
     }
